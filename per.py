@@ -31,7 +31,17 @@ def poss_fn(df,team):
     poss = 0.5 * (FGA + 0.475 * FTA - ORB + TOV) + 0.5 * (op_FGA + 0.475 * op_FTA - op_ORB + op_TOV)
     return poss
 
-def uPER(df,player):
+def pace_fn(df,team):
+    return 40 * (poss_fn(df,team) / (0.2 * df[df['TEAM']==team]['MINS'].sum()))
+
+def league_pace_fn(df):
+    teams = df['TEAM'].unique()
+    pace = 0
+    for x in teams:
+        pace += pace_fn(df,x)
+    return pace/len(teams)
+
+def uPER_fn(df,player):
     team = df[df['PLAYER']==player]['TEAM'].values[0]
     VOP = VOP_fn(df)
     DRB = DRB_fn(df)
@@ -63,4 +73,20 @@ def uPER(df,player):
 
     return uPER
 
+def league_uPER(df):
+    players = df['PLAYER'].unique()
+    luPER = 0
+    for x in players:
+        luPER += uPER_fn(df,x)
+    return luPER/len(players)
+
+def PER(df,player):
+    team = df[df['PLAYER']==player]['TEAM'].unique()[0]
+    uPER = uPER_fn(df,player)
+    lg_pace = league_pace_fn(df)
+    tm_pace = pace_fn(df,team)
+    lguPER = league_uPER(df)
+    return (uPER * (lg_pace/tm_pace)) * (15/lguPER)
+
 if __name__=='__main__':
+    pass

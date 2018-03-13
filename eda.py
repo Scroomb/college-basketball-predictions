@@ -26,7 +26,9 @@ def clean_data(df):
     for x in games:
         if df[df['MATCH']==x]['TEAM'].nunique()==1:
             drp_vals.append(x)
-    return df[~df['MATCH'].isin(drp_vals)]
+    return df[~df['MATCH'].isin(drp_vals)].reset_index()
+
+
 if __name__ == '__main__':
     yr_16_17 = pd.read_csv('../smarter-than-nate-silver/data/2016-2017_gamedata.csv')
     yr_16_17 = clean_data(yr_16_17)
