@@ -79,14 +79,17 @@ def league_uPER(df,players):
         luPER.append(uPER_fn(df,x[0],x[1]))
     return luPER
 
-def PER(df,player,team, league_uPER):
+def PER(df,player,team, league_uPER, league_pace):
     uPER = uPER_fn(df,player,team)
     #lg_pace = league_pace_fn(df)
-    lg_pace = 91.79741778708674
+    #lg_pace2006 = 85.94778787902771
+    lg_pace = league_pace
     tm_pace = pace_fn(df,team)
-    #lguPER = league_uPER(df)
-    lguPER = 0.19045855726112576
-    return (uPER * (lg_pace/tm_pace)) * (15/lguPER)
+    lguPER = league_uPER
+    #lguPER = 0.22530543318559995
+    #lguPER2006 = 0.21923570021192998
+    PER_val = (uPER * (lg_pace/tm_pace)) * (15/lguPER)
+    return PER_val
 
 if __name__=='__main__':
     pass
