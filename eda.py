@@ -4,6 +4,7 @@ import per
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+from pandas.plotting import scatter_matrix
 
 def split_data(df):
     date = pd.DataFrame(df['DATE'].str.split('-').tolist(),
@@ -129,10 +130,23 @@ def make_games(df,years):
             scores = df[df['MATCH']==g].groupby('TEAM')['PTS'].sum()
             games.append([g,d,scores[0]-scores[1]])
     games_df = pd.DataFrame(games,columns=['MATCH','DATE','PT_DIFF'])
+    hm_aw = pd.DataFrame(games_df['MATCH'].str.split(' vs. ').tolist(),
+        columns=['HOME','AWAY'])
+    games_df = pd.concat([games_df,hm_aw],axis=1)
     games_df.to_csv('data/' + years + '_games.csv')
     return games_df
 
-def make_data(df):
+def get_games(years):
+    gms = pd.read_csv('data/'+years+'_games.csv')
+    gms.drop('Unnamed: 0',axis=1,inplace=True)
+    hm_aw = pd.DataFrame(gms['MATCH'].str.split(' vs. ').tolist(),
+        columns=['HOME','AWAY'])
+    gms = pd.concat([gms,hm_aw],axis=1)
+    return gms
+
+def make_data(games,teams,years):
+    t1 = teams.reset_index()
+    num_games = len(games)
     col_h =['H_index', 'HOME', 'H_A', 'H_BLK', 'H_DEF', 'H_OFF', 'H_PF', 'H_PTS',
     'H_STL', 'H_TO', 'H_TOT', 'H_3P', 'H_3PA', 'H_FG', 'H_FGA', 'H_FT', 'H_FTA', 'H_PER']
     col_a = ['A_index', 'AWAY', 'A_A', 'A_BLK', 'A_DEF', 'A_OFF', 'A_PF', 'A_PTS',
@@ -142,41 +156,52 @@ def make_data(df):
 
     cnvt_dict_h = dict(zip(cols,col_h))
     cnvt_dict_a = dict(zip(cols,col_a))
-    out_cols = ['MATCH', 'DATE', 'PT DIFF', 'HOME', 'AWAY', 'H_index', 'H_A', 'H_BLK',
+    out_cols = ['MATCH', 'DATE', 'PT_DIFF', 'HOME', 'AWAY', 'H_index', 'H_A', 'H_BLK',
            'H_DEF', 'H_OFF', 'H_PF', 'H_PTS', 'H_STL', 'H_TO', 'H_TOT', 'H_3P',
            'H_3PA', 'H_FG', 'H_FGA', 'H_FT', 'H_FTA', 'H_PER', 'A_index', 'A_A',
            'A_BLK', 'A_DEF', 'A_OFF', 'A_PF', 'A_PTS', 'A_STL', 'A_TO', 'A_TOT',
            'A_3P', 'A_3PA', 'A_FG', 'A_FGA', 'A_FT', 'A_FTA', 'A_PER']
     all_data = pd.DataFrame(columns=out_cols)
-    for m in df['MATCH']:
-        hm_aw = df[df['MATCH']==m][['HOME','AWAY']].values
+    for m in games['MATCH']:
+        print(num_games)
+        num_games-=1
+        hm_aw = games[games['MATCH']==m].loc[:,['HOME','AWAY']].values
         home = t1[t1['TEAM']==hm_aw[0][0]].reset_index()
         home.rename(index=str,columns=cnvt_dict_h,inplace=True)
         away = t1[t1['TEAM']==hm_aw[0][1]].reset_index()
         away.rename(index=str,columns=cnvt_dict_a,inplace=True)
         hm_aw_stats = home.join(away,how='outer')
-        out = df[df['MATCH']==m]
+        out = games[games['MATCH']==m]
         for key,value in hm_aw_stats.iteritems():
             out.loc[:,key]=value.values[0]
         all_data = pd.concat([all_data,out])
+        all_data.drop(['A_index','H_index','HOME','AWAY','MATCH','DATE'],
+            axis=1,inplace=True)
+    all_data.to_csv('data/'+years+'_all_data.csv')
     return all_data
 
 if __name__ == '__main__':
-    year_list = ['2006-2007','2007-2008','2008-2009','2009-2010','2010-2011',
-                '2011-2012','2012-2013','2013-2014','2014-2015','2015-2016',
-                '2016-2017','2017-2018']
-    #year_list = ['2008-2009','2009-2010','2010-2011',
+    # year_list = ['2006-2007','2007-2008','2008-2009','2009-2010','2010-2011',
+    #             '2011-2012','2012-2013','2013-2014','2014-2015','2015-2016',
+    #             '2016-2017','2017-2018']
+    year_list = ['2015-2016','2016-2017']
+                #['2008-2009','2009-2010','2010-2011',
                 # '2011-2012','2012-2013','2014-2015','2015-2016',
                 # '2016-2017','2017-2018']
-    years = '2006-2007'
-    df = get_clean_file(years)
-    df.dropna(inplace=True)
-    games = make_games(df,years)
-    all_data = make_data(games)
-
-    # for years in year_list:
-    #     df = get_clean_file(years)
-    #     df.dropna(inplace=True)
-    #     # players = make_player(df,years)
-    #     # teams = make_teams(df,players)
-    #     games = make_games(df,years)
+    # years = '2006-2007'
+    # df = get_clean_file(years)
+    # df.dropna(inplace=True)
+    # players = make_player(df,years)
+    # games = get_games(years)
+    # teams = make_teams(df,players)
+    # all_data = make_data(games,teams)
+    #
+    for years in year_list:
+        print(f'Making data for {years}')
+        df = get_clean_file(years)
+        df.dropna(inplace=True)
+        players = make_player(df,years)
+        teams = make_teams(df,players)
+        games = get_games(years)
+        all_data = make_data(games,teams,years)
+        print(f'Data generated for {years}')
