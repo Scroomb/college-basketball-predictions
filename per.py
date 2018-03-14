@@ -41,8 +41,8 @@ def league_pace_fn(df):
         pace += pace_fn(df,x)
     return pace/len(teams)
 
-def uPER_fn(df,player):
-    team = df[df['PLAYER']==player]['TEAM'].values[0]
+def uPER_fn(df,player,team):
+    #team = df[df['PLAYER']==player]['TEAM'].values[0]
     VOP = VOP_fn(df)
     DRB = DRB_fn(df)
     factor = factor_fn(df)
@@ -73,19 +73,19 @@ def uPER_fn(df,player):
 
     return uPER
 
-def league_uPER(df):
-    players = df['PLAYER'].unique()
-    luPER = 0
+def league_uPER(df,players):
+    luPER = []
     for x in players:
-        luPER += uPER_fn(df,x)
-    return luPER/len(players)
+        luPER.append(uPER_fn(df,x[0],x[1]))
+    return luPER
 
-def PER(df,player):
-    team = df[df['PLAYER']==player]['TEAM'].unique()[0]
-    uPER = uPER_fn(df,player)
-    lg_pace = league_pace_fn(df)
+def PER(df,player,team, league_uPER):
+    uPER = uPER_fn(df,player,team)
+    #lg_pace = league_pace_fn(df)
+    lg_pace = 91.79741778708674
     tm_pace = pace_fn(df,team)
-    lguPER = league_uPER(df)
+    #lguPER = league_uPER(df)
+    lguPER = 0.19045855726112576
     return (uPER * (lg_pace/tm_pace)) * (15/lguPER)
 
 if __name__=='__main__':
