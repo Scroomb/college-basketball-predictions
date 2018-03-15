@@ -189,8 +189,8 @@ def make_data(games,teams,years):
 
 def get_all_data(years):
     df = pd.read_csv('data/'+years+'_all_data.csv')
-    df.drop(['Unnamed: 0','MATCH','DATE','HOME','AWAY','TEAM_x','TEAM_y']
-    ,axis=1,inplace=True)
+    df.drop(['Unnamed: 0'],axis=1,inplace=True)
+    #'MATCH','DATE','HOME','AWAY','TEAM_x','TEAM_y'
     return df
 
 def make_all_data(years):
@@ -203,33 +203,34 @@ def make_all_data(years):
     for years in year_list:
         df = get_all_data(years)
         all_data = pd.concat([all_data,df])
-    all_data.to_csv('data/all_test_data.csv')
+    #all_data.to_csv('data/all_test_data.csv')
     return all_data
 
 if __name__ == '__main__':
-    year_list = ['2006-2007','2007-2008','2008-2009','2009-2010','2010-2011',
-                '2011-2012','2012-2013','2013-2014','2014-2015','2015-2016']
+    pass
+    #year_list = ['2006-2007','2007-2008','2008-2009','2009-2010','2010-2011',
+                #'2011-2012','2012-2013','2013-2014','2014-2015','2015-2016']
                 #'2016-2017','2017-2018']
-    #year_list = ['2006-2007']
-                #['2008-2009','2009-2010','2010-2011',
-                # '2011-2012','2012-2013','2014-2015','2015-2016',
-                # '2016-2017','2017-2018']
-    # years = '2007-2008'
-    # df = get_clean_file(years)
-    # df.dropna(inplace=True)
-    # players = make_player(df,years)
-    # games = get_games(years)
-    # teams = make_teams(df,players)
-    # all_data = make_data(games,teams)
-    #
+    # year_list = ['2006-2007']
+    #             #['2008-2009','2009-2010','2010-2011',
+    #             # '2011-2012','2012-2013','2014-2015','2015-2016',
+    #             # '2016-2017','2017-2018']
+    # # years = '2007-2008'
+    # # df = get_clean_file(years)
+    # # df.dropna(inplace=True)
+    # # players = make_player(df,years)
+    # # games = get_games(years)
+    # # teams = make_teams(df,players)
+    # # all_data = make_data(games,teams)
+    # #
+    # # for years in year_list:
+    # #     print(f'Making data for {years}')
+    # #     df = get_clean_file(years)
+    # #     df.dropna(inplace=True)
+    # #     players = make_player(df,years)
+    # #     teams = make_teams(df,players)
+    # #     games = get_games(years)
+    # #     all_data = make_data(games,teams,years)
+    # #     print(f'Data generated for {years}')
     # for years in year_list:
-    #     print(f'Making data for {years}')
-    #     df = get_clean_file(years)
-    #     df.dropna(inplace=True)
-    #     players = make_player(df,years)
-    #     teams = make_teams(df,players)
-    #     games = get_games(years)
-    #     all_data = make_data(games,teams,years)
-    #     print(f'Data generated for {years}')
-    for years in year_list:
-        all_data = make_all_data(years)
+    #     all_data = make_all_data(years)

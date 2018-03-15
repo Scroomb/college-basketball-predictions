@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, LassoCV, ElasticNetCV
+from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
-from sklearn.model_selection import cross_val_predict
+from sklearn.model_selection import cross_val_predict, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.metrics import mean_squared_error
@@ -135,20 +136,34 @@ if __name__ == '__main__':
     #
     # lin_pipeline.fit(X_train,y_train)
     # pred = lin_pipeline.predict(X_test)
-
-    las_pipeline = Pipeline([
-        ('standardize',StandardScaler()),
-        ('lasregression',LassoCV())
-    ])
-
-    # las_pipeline.fit(X_train,y_train)
-    # pred = lin_pipeline.predict(X_test)
-
-    lasso_alphas = np.logspace(-3, 3, num=250)
-    num_al = len(lasso_alphas)
     #
+    # las_pipeline = Pipeline([
+    #     ('standardize',StandardScaler()),
+    #     ('lasregression',LassoCV())
+    # ])
+    #
+    # # las_pipeline.fit(X_train,y_train)
+    # # pred = lin_pipeline.predict(X_test)
+    #
+    _alphas = np.logspace(-1, 8, num=500)
+    num_al = len(_alphas)
+    parameters = {'alpha':_alphas,'l1_ratio':np.arange(0,1.1,.1)}
+    elastic = ElasticNet()
+    gscv = GridSearchCV(elastic,parameters,n_jobs=-1,scoring='neg_mean_squared_error')
+
+    scaler = StandardScaler()
+    scaler.fit(X_train)
+    X_train_std = scaler.transform(X_train)
+
+    scaler.fit(y_train.values.reshape(-1,1))
+    y_train_std = scaler.transform(y_train.values.reshape(-1, 1)).flatten()
+
+    gscv.fit(X_train_std,y_train_std)
+    print(gscv.best_params_)
+
+    # #
     # lasso_cv_errors_train, lasso_cv_errors_test = train_at_various_alphas(
-    #     X_train.values, y_train.values, Lasso, lasso_alphas, max_iter=5000)
+    #     X_train.values, y_train.values, Lasso, lasso_alphas, max_iter=10)
     #
     # lasso_mean_cv_errors_train = lasso_cv_errors_train.mean(axis=0)
     # lasso_mean_cv_errors_test = lasso_cv_errors_test.mean(axis=0)
