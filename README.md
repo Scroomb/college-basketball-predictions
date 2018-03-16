@@ -9,7 +9,7 @@ Player Efficiency Rating (PER) is a per-minute rating developed by John Hollinge
 PER/p predict per game point differential?
 
 ## EDA/Cleaning
-A majority of the data used was contained within per games box scores.  Since compares and predictions are going to be made on seasonal averages, the data needed to be aggregated.  The data was split into three separate matrices to assist in the final aggregation.
+A majority of the data used was contained within per games box scores.  Since compares and predictions are going to be made on seasonal averages, the data needed to be aggregated.  The data was split into three separate matrices to assist in the final aggregation.  The dataset used for modeling will combine yearly averages of two competing teams.
 
 ### Data
 #### Player
@@ -67,8 +67,8 @@ Most statistics seen here are tracked by the official scorer for the game.  Addi
 
 
 #### EDA
-
-
+![Correlation Matrix of both team features](figs/ALL_Correlation_Matrix.png)
+The correlation matrix above highlights some correlated features that are easily understood.  Free Throw makes (FT) is going to be highly correlated with Free Throw Attempts (FTA).  Similarly, Assists (A) will be highly correlated with Field Goals (FG).  The light box in the bottom left highlights the fact that most stats between competing teams are not correlated.  
 
 ### Conclusion
 The PER statistic is known to mainly use offensive statistics.  While it contains some defensive values, they do not fully measure a player's defensive capabilities.  Additionally, the data used, does not take into account play styles by different teams.  Since some teams may have a play style that focuses mainly on offense and not defense, they may score a lot of points and have an inflated PER/p, without winning many games.  Conversely, a team that focuses on defense, will have a lower PER/p, but they could win a lot of games. This inability to quantify defense in the data used could be introducing too much noise in the data to truly be able to predict well.

@@ -57,7 +57,8 @@ def make_histograms(dfs):
         n[0].plot(kind='hist',ax=ax)
         n[0].plot(kind='kde',ax=ax,secondary_y=True)
         ax.set_title(n[1])
-    plt.suptitle('Yearly PER Distributions')
+    plt.suptitle('Yearly PER Distributions', size=14, y = 1.08)
+    plt.tight_layout()
     plt.show()
 
 def gen_ks_test(df):
@@ -106,7 +107,7 @@ if __name__ == '__main__':
             (df7_per,'2012-2013'),(df8_per,'2013-2014'),(df9_per,'2014-2015'),
             (df10_per,'2015-2016'),(df11_per,'2016-2017'),(df12_per,'2017-2018')]
 
-    #make_histograms(dfs)
+    make_histograms(dfs)
     #KS Test, null hypothesis is distributions are equal.  Comparing data to normal.
     #ks_vals = check_normality(dfs)
     #p_values < 0.05 reject null, thus non non-normal,
@@ -124,7 +125,7 @@ if __name__ == '__main__':
     # one sample will be less than or greater than a randomly selected value from a
     # second sample.  The alternative hypothesis is that
 
-    scs.mannwhitneyu(df1_per.values,df11_per.values,alternative='less')
+    #scs.mannwhitneyu(df1_per.values,df11_per.values,alternative='less')
     #MannwhitneyuResult(statistic=54985.0, pvalue=0.04323639531512454)
     #since p_value (0.043) is less than alpha of 0.05 we will reject our null hypothes is that it
     #equally likely a randomly selected mean PER from 2006-2007 will be less than a
