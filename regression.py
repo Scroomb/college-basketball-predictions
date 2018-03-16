@@ -146,7 +146,7 @@ if __name__ == '__main__':
     # # las_pipeline.fit(X_train,y_train)
     # # pred = lin_pipeline.predict(X_test)
     #
-    _alphas = np.logspace(-4, -1, num=500)
+    _alphas = np.logspace(-4, 5, num=1000)
     num_al = len(_alphas)
 
     # make_coefficient_paths(

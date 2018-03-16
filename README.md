@@ -117,7 +117,7 @@ Our goal is to attempt to predict the point differential between two teams based
 
 ![Linear Regression Scatter](figs/Simple_Linear_Regression_2.png)  
 ```RMSE: 0.987```  
-This doesn't look too good.  
+This doesn't look good.  
 
 Lets look at the coefficients:
 
@@ -156,9 +156,9 @@ Lets look at the coefficients:
 | FTA_y |  0.271 |
 | PER_y |  -0.333 |
 
-It looks like there are four coefficients TOT_x, TOT_y, DEF_x, DEF_y, OFF_x, and OFF_y which are dominating our model. These coefficients all relate to rebounding, but it is surprising that points is not much higher.  Thinking about it, a team will gain or lose possession on a rebound, but I wouldn't think it would be this high.
+It looks like there are four coefficients TOT_x, TOT_y, DEF_x, DEF_y, OFF_x, and OFF_y which are dominating our model. These coefficients all relate to rebounding, but it is surprising that points is not higher.  Rebounds would make sense because a team will gain or lose possession on a rebound, but I wouldn't think it would be this high.
 
-Let's make a model that will do all of the thinking for us to determine the right coefficients.  This model will be an ElasticNet with a cross validated Grid Search.  The Elastic Net model will combine both Ridge and Lasso regularization and the cross validated Grid Search will allow us to pass the ElasticNet varying alpha and L1 ratios.  The resulting best alpha and L1 ratios were, surprisingly **alpha = 0.1** and **l1_ratio = 0.0**.  With a zero L1 ratio, the model is saying that a purely Ridge based model is best.  This is implying all removing features does not produce a better model.  The alpha of 0.1 is implying that we do not have a very complex model.  
+Let's make a model that will do all of the thinking for us to determine the right coefficients.  This model will be an ElasticNet with a cross validated Grid Search.  The Elastic Net model will combine both Ridge and Lasso regularization and the cross validated Grid Search will allow us to pass the ElasticNet varying alpha (lambda) and L1 ratios.  The resulting best alpha and L1 ratios were, surprisingly **alpha = 0.1** and **l1_ratio = 0.0**.  With a zero L1 ratio, the model is saying that a purely Ridge based model is best.  This is implying removing features does not produce a better model.  The alpha of 0.1 is implying that we do not have a very complex model.  
 
 Lets look at the coefficients of a Ridge with our alpha.
 
@@ -206,4 +206,4 @@ Not much better, infact our RMSE is worse.
 With the worse RMSE, this supports our analysis of the low alpha implying we do not have a very complex model.
 
 ### Conclusion
-The PER statistic is known to mainly use offensive statistics.  While it contains some defensive values, they do not fully measure a player's defensive capabilities.  Additionally, the data used, does not take into account play styles by different teams.  Since some teams may have a play style that focuses mainly on offense and not defense, they may score a lot of points and have an inflated PER/p, without winning many games.  Conversely, a team that focuses on defense, will have a lower PER/p, but they could win a lot of games. This inability to quantify defense in the data used could be introducing too much noise in the data to truly be able to predict well.
+The PER statistic is known to mainly use offensive statistics.  While it contains some defensive values, they do not fully measure a player's defensive capabilities.  Additionally, the data used, does not take into account play styles by different teams.  Since some teams may have a play style that focuses mainly on offense and not defense, they may score a lot of points and have an inflated PER/p, without winning many games.  Conversely, a team that focuses on defense, will have a lower PER/p, but they could win a lot of games. This inability to quantify defense in the data used could be introducing too much noise in the data to truly be able to predict well.  Reflecting back on the correlation matrix, I was hoping to find more features that correlated to PT_
