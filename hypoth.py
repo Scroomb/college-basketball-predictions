@@ -63,7 +63,7 @@ def make_histograms(dfs):
     plt.show()
 
 def gen_ks_test(df):
-    return scs.kstest(df.values,comp)
+    return scs.kstest(df.values,'norm')
 
 def check_normality(dfs):
     df_ks_vals = []
@@ -108,9 +108,9 @@ if __name__ == '__main__':
             (df7_per,'2012-2013'),(df8_per,'2013-2014'),(df9_per,'2014-2015'),
             (df10_per,'2015-2016'),(df11_per,'2016-2017'),(df12_per,'2017-2018')]
 
-    make_histograms(dfs)
+    #make_histograms(dfs)
     #KS Test, null hypothesis is distributions are equal.  Comparing data to normal.
-    #ks_vals = check_normality(dfs)
+    ks_vals = check_normality(dfs)
     #p_values < 0.05 reject null, thus non non-normal,
     #Use Kruskal-Wallis H-test to compare
     #Null hypothesis that the population median of all of the groups are equal.
