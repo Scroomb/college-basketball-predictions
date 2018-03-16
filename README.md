@@ -19,12 +19,12 @@ A.D. Vassallo|Virginia Tech 	|2006-2007| 	29.0| 	9.0| 	111.0| 	19.0| 	80.0| 	350
 A.J. Abrams 	|Texas 	|2006-2007| 	52.0| 	4.0| 	61.0| 	25.0| 	63.0| 	543.0| 	46.0| 	48.0| 	86.0| 	68.0| 	134.0| 	171.0| 	364.0| 	133.0| 	158.0| 	1202.0| 	35 	|2.933545
 #### Team
 TEAM 	|A |	BLK 	|DEF 	|OFF| 	PF 	|PTS| 	STL| 	TO| 	TOT| 	3P| 	3PA| 	FG| 	FGA| 	FT| 	FTA| 	PER/P
---|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---
 Air Force 	|13.484848| 	1.545455| 	18.000000 	|5.181818 	|12.575758| 	62.909091| 	6.181818| 	8.636364| 	23.181818| 	7.787879| 	18.848485| 	20.515152| 	42.272727| 	11.909091| 	15.666667| 	24.487105
 
 #### Games
 MATCH 	| DATE | 	PT_DIFF 	|HOME | 	AWAY
---|--|--|--|--|--
+---|---|---|---|---|---
 New Orleans vs. Vermont 	|2006-11-07 	|-17.0| 	New Orleans 	|Vermont
 
 
@@ -68,7 +68,15 @@ Most statistics seen here are tracked by the official scorer for the game.  Addi
 
 #### EDA
 ![Correlation Matrix of both team features](figs/ALL_Correlation_Matrix.png)
-The correlation matrix above highlights some correlated features that are easily understood.  Free Throw makes (FT) is going to be highly correlated with Free Throw Attempts (FTA).  Similarly, Assists (A) will be highly correlated with Field Goals (FG).  The light box in the bottom left highlights the fact that most stats between competing teams are not correlated.  
+The correlation matrix above highlights some correlated features that are easily understood.  Free Throw makes (FT) is going to be highly correlated with Free Throw Attempts (FTA).  Similarly, Assists (A) will be highly correlated with Field Goals (FG).  The light box in the bottom left highlights the fact that most stats between competing teams are not correlated.  Although we see some correlated features, based on our knowledge of basketball statistics, we will not be removing any before we model.  
+
+We are also going to be checking if PER has increased year over year so lets plot histograms of per with KDE to help determine if they are normally distributed.  
+![Yearly PER histograms](figs/Yearly_Per_Distributions.png)
+
+These distributions don't look quite normal so we will perform some tests to confirm.
+
+### Hypothesis Testing
+Since our PER data did not look normally distributed we cannot use an ANOVA to determine if one of the years has a
 
 ### Conclusion
 The PER statistic is known to mainly use offensive statistics.  While it contains some defensive values, they do not fully measure a player's defensive capabilities.  Additionally, the data used, does not take into account play styles by different teams.  Since some teams may have a play style that focuses mainly on offense and not defense, they may score a lot of points and have an inflated PER/p, without winning many games.  Conversely, a team that focuses on defense, will have a lower PER/p, but they could win a lot of games. This inability to quantify defense in the data used could be introducing too much noise in the data to truly be able to predict well.

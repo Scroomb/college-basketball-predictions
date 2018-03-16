@@ -57,8 +57,9 @@ def make_histograms(dfs):
         n[0].plot(kind='hist',ax=ax)
         n[0].plot(kind='kde',ax=ax,secondary_y=True)
         ax.set_title(n[1])
-    plt.suptitle('Yearly PER Distributions', size=14, y = 1.08)
+    plt.suptitle('Yearly PER Distributions', size=16)
     plt.tight_layout()
+    plt.subplots_adjust(top=0.9)
     plt.show()
 
 def gen_ks_test(df):
