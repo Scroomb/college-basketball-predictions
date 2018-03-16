@@ -206,6 +206,8 @@ Not much better, infact our RMSE is worse.
 With the worse RMSE, this supports our analysis of the low alpha implying we do not have a very complex model.
 
 ### Conclusion
+Team yearly averages of stats are not able to accurately predict point differential in college basketball games.  If the predicted vs tested data graph was concentrated in the top right and bottom right quadrants, I would be more confident in the model to accurately predict games. 
+
 The PER statistic is known to mainly use offensive statistics.  While it contains some defensive values, they do not fully measure a player's defensive capabilities.  Additionally, the data used, does not take into account play styles by different teams.  Since some teams may have a play style that focuses mainly on offense and not defense, they may score a lot of points and have an inflated PER/p, without winning many games.  Conversely, a team that focuses on defense, will have a lower PER/p, but they could win a lot of games. This inability to quantify defense in the data used could be introducing too much noise in the data to truly be able to predict well.  Reflecting back on the correlation matrix, I was hoping to find more features that correlated to PT_DIFF.
 
 ### Future Considerations
