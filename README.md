@@ -13,12 +13,6 @@ A majority of the data used was contained within per games box scores.  Since co
 
 ### Data
 #### Player
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
 | PLAYER | TEAM | YEAR | A | BLK | DEF | OFF | PF | PTS | STL | TO | TOT | 3P | 3PA | FG | FGA | FT | FTA | MINS | GAMES | PER |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | A.D. Vassallo | Virginia Tech | 2006-2007 | 29.0 | 9.0 | 111.0 | 19.0 | 80.0 | 350.0 | 14.0 | 42.0 | 130.0 | 11.0 | 37.0 | 79.0 | 170.0 | 62.0 | 86.0 | 590.0 | 33 | 22.237219 |
@@ -30,18 +24,11 @@ A majority of the data used was contained within per games box scores.  Since co
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Air Force 	|13.484848| 	1.545455| 	18.000000 	|5.181818 	|12.575758| 	62.909091| 	6.181818| 	8.636364| 	23.181818| 	7.787879| 	18.848485| 	20.515152| 	42.272727| 	11.909091| 	15.666667| 	24.487105|
 
-| TEAM | A | BLK | DEF | OFF | PF | PTS | STL | TO | TOT | 3P | 3PA | FG | FGA | FT | FTA | PER/P |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|  
-| Air Force 	|13.484848| 	1.545455| 	18.000000 	|5.181818 	|12.575758| 	62.909091| 	6.181818| 	8.636364| 	23.181818| 	7.787879| 	18.848485| 	20.515152| 	42.272727| 	11.909091| 	15.666667| 	24.487105|  
-
 #### Games
 | MATCH | DATE | PT_DIFF | HOME | AWAY |
 | --- | --- | --- | --- | --- |
 | New Orleans vs. Vermont | 2006-11-07 | -17.0 | New Orleans | Vermont |  
 
-|MATCH 	| DATE | 	PT_DIFF 	|HOME | 	AWAY|  
-|---|---|---|---|---|---|  
-|New Orleans vs. Vermont 	|2006-11-07 	|-17.0| 	New Orleans 	|Vermont|  
 
 
 
