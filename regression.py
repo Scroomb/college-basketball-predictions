@@ -147,19 +147,20 @@ if __name__ == '__main__':
     #
     _alphas = np.logspace(-1, 8, num=500)
     num_al = len(_alphas)
-    parameters = {'alpha':_alphas,'l1_ratio':np.arange(0,1.1,.1)}
-    elastic = ElasticNet()
-    gscv = GridSearchCV(elastic,parameters,n_jobs=-1,scoring='neg_mean_squared_error')
-
-    scaler = StandardScaler()
-    scaler.fit(X_train)
-    X_train_std = scaler.transform(X_train)
-
-    scaler.fit(y_train.values.reshape(-1,1))
-    y_train_std = scaler.transform(y_train.values.reshape(-1, 1)).flatten()
-
-    gscv.fit(X_train_std,y_train_std)
-    print(gscv.best_params_)
+    # parameters = {'alpha':_alphas,'l1_ratio':np.arange(0,1.1,.1)}
+    # elastic = ElasticNet()
+    # gscv = GridSearchCV(elastic,parameters,n_jobs=-1,scoring='neg_mean_squared_error')
+    #
+    # scaler = StandardScaler()
+    # scaler.fit(X_train)
+    # X_train_std = scaler.transform(X_train)
+    #
+    # scaler.fit(y_train.values.reshape(-1,1))
+    # y_train_std = scaler.transform(y_train.values.reshape(-1, 1)).flatten()
+    #
+    # gscv.fit(X_train_std,y_train_std)
+    # print(gscv.best_params_)
+    #{'alpha': 0.1, 'l1_ratio': 0.0}
 
     # #
     # lasso_cv_errors_train, lasso_cv_errors_test = train_at_various_alphas(

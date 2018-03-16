@@ -90,7 +90,7 @@ def corr_heat(df,year):
     plt.xticks(rotation=60, ha="right")
     plt.yticks(rotation=0)
     ax.set_title(year + " Correlation Matrix")
-    plt.savefig( 'figs/' + year + '_Correlation_Matrix.png')
+    #plt.savefig( 'figs/' + year + '_Correlation_Matrix.png')
 
 def make_teams(df,players):
     pl1 = players.reset_index()
@@ -215,12 +215,12 @@ if __name__ == '__main__':
     #             #['2008-2009','2009-2010','2010-2011',
     #             # '2011-2012','2012-2013','2014-2015','2015-2016',
     #             # '2016-2017','2017-2018']
-    # # years = '2007-2008'
-    # # df = get_clean_file(years)
-    # # df.dropna(inplace=True)
-    # # players = make_player(df,years)
-    # # games = get_games(years)
-    # # teams = make_teams(df,players)
+    years = '2007-2008'
+    df = get_clean_file(years)
+    df.dropna(inplace=True)
+    players = make_player(df,years)
+    games = get_games(years)
+    teams = make_teams(df,players)
     # # all_data = make_data(games,teams)
     # #
     # # for years in year_list:

@@ -61,7 +61,7 @@ def make_histograms(dfs):
     plt.show()
 
 def gen_ks_test(df):
-    return scs.kstest(df.values,'norm')
+    return scs.kstest(df.values,comp)
 
 def check_normality(dfs):
     df_ks_vals = []
@@ -108,8 +108,26 @@ if __name__ == '__main__':
 
     #make_histograms(dfs)
     #KS Test, null hypothesis is distributions are equal.  Comparing data to normal.
-    ks_vals = check_normality(dfs)
+    #ks_vals = check_normality(dfs)
     #p_values < 0.05 reject null, thus non non-normal,
     #Use Kruskal-Wallis H-test to compare
     #Null hypothesis that the population median of all of the groups are equal.
-    KWH = scs
+
+
+
+
+
+
+    # Mann–Whitney U test (also called the Mann–Whitney–Wilcoxon (MWW), Wilcoxon
+    # rank-sum test, or Wilcoxon–Mann–Whitney test) is a nonparametric test of the
+    # null hypothesis that it is equally likely that a randomly selected value from
+    # one sample will be less than or greater than a randomly selected value from a
+    # second sample.  The alternative hypothesis is that
+
+    scs.mannwhitneyu(df1_per.values,df11_per.values,alternative='less')
+    #MannwhitneyuResult(statistic=54985.0, pvalue=0.04323639531512454)
+    #since p_value (0.043) is less than alpha of 0.05 we will reject our null hypothes is that it
+    #equally likely a randomly selected mean PER from 2006-2007 will be less than a
+    #randomly selected mean PER from 2016-2017.  Thus the mean PER from 2006-2007 tends to be
+    #less than the mean PER from 2016-2017.  AKA mean PER has generally increased from 2006-2007
+    #to 2016-2017.
