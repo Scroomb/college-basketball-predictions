@@ -99,7 +99,7 @@ Since our PER data did not look normally distributed lets peform a Kolmogorov–
 | 2016-2017 | 0.992 | 0.0 |
 | 2017-2018 | 0.991 | 0.0 |
 
-Our p_value of 0 for each year confirms our previous assumption that the PER value is not normally distributed.  This fact will prevent us from using an ANOVA to determine if one year is statistically different from the rest.  There is a non-parametric test, Kruskal-Wallis H-test, that can be performed in place of the ANOVA.  It is easy to plug our data into this test in Scipy Stats (giving a result of **statistic = 45.8** and **p_value = 3.38e-06**) but I am not fully able to explain how this test works.  
+Our p_value of 0 for each year confirms our previous assumption that the PER value is not normally distributed.  This fact will prevent us from using an ANOVA to determine if one year is statistically different from the rest.  There is a non-parametric test, Kruskal-Wallis H-test, that can be performed in place of the ANOVA.  It is easy to plug our data into this test in Scipy Stats (giving a result of **statistic = 45.8** and **p_value = 3.38e-06**).
 
 If we assume the result from the Kruskal-Wallis test is valid, we can then find another non-parametric test to use in place of a t-test to compare our years.  Since we are only interested in determining if there has been an increase between the 2006-2007 season and the 2016-2017 season we can use another easy plug and play test.  This time we will use the Mann-Whitney U test.  With this test, our null hypothesis will be that it is equally likely that a randomly selected value from the 2006-2007 sample will be less than or greater than a randomly selected value from the 2016-2017 sample.  
 
